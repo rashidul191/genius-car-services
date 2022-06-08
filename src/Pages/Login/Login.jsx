@@ -1,20 +1,33 @@
 import React, { useRef } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useLocation, useNavigate } from "react-router-dom";
+import auth from "../../firebase.init";
 
 const Login = () => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  let from = location.state?.from?.pathname || "/";
+
+  const [signInWithEmailAndPassword, user] =
+    useSignInWithEmailAndPassword(auth);
+
+  if (user) {
+    // console.log(user);
+    navigate(from, { replace: true });
+  }
   const handleLoginSubmit = (event) => {
     event.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
-    console.log(email, password);
+    // console.log(email, password);
+    signInWithEmailAndPassword(email, password);
   };
 
-  const navigate = useNavigate();
   const navigateRegister = () => {
     navigate("/register");
   };
@@ -22,7 +35,6 @@ const Login = () => {
   return (
     <div className="container w-50 mx-auto">
       <h2 className="text-center text-info mt-4">Please Login</h2>
-
       <Form className="border border-5 p-5" onSubmit={handleLoginSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -53,7 +65,10 @@ const Login = () => {
       </Form>
       <p>
         New to Genius Car?{" "}
-        <span className="text-info text-decoration-underline user-select-none" onClick={navigateRegister}>
+        <span
+          className="text-info text-decoration-underline user-select-none"
+          onClick={navigateRegister}
+        >
           Please Register
         </span>
       </p>
