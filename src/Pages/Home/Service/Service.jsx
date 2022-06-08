@@ -1,7 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Service = (props) => {
-  const { name, price, img, description } = props.service;
+  const { name, price, img, description, id } = props.service;
+
+  const navigate = useNavigate()
+  const navigateToServiceDetail = (id) =>{
+    navigate(`/service/${id}`);
+    console.log(id)
+
+  }
   return (
     <div className="col">
       <div className="card">
@@ -12,7 +20,7 @@ const Service = (props) => {
           Price: $ <span className="text-warning">{price}</span>
         </h6>
         <p>{description}</p>
-        <button className="btn btn-success">Book: {name}</button>
+        <button className="btn btn-success" onClick={()=> navigateToServiceDetail(id)}>Book: {name}</button>
        </div>
       </div>
     </div>
