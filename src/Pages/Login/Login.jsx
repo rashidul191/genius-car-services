@@ -9,6 +9,8 @@ import auth from "../../firebase.init";
 import SocialLogin from "./SocialLogin/SocialLogin";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PageTitle from "../Shared/PageTitle/PageTitle";
+// import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   // email and password input event
@@ -58,6 +60,10 @@ const Login = () => {
 
   return (
     <div className="container w-50 mx-auto">
+      {/* <Helmet>
+        <title>Login- Genius-Car-Services</title>
+      </Helmet> */}
+      <PageTitle title="Login"></PageTitle>
       <h2 className="text-center text-info mt-4">Please Login</h2>
       <Form className="border border-5 p-5" onSubmit={handleLoginSubmit}>
         {/* error message */}

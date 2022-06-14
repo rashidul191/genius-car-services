@@ -69,9 +69,15 @@ const Header = () => {
                 {" "}
                 <CustomLink to="/home">Home</CustomLink>
               </Nav.Link>
+
               <Nav.Link className="mx-3">
                 {" "}
                 <CustomLink to="/about">About</CustomLink>
+              </Nav.Link>
+
+              <Nav.Link className="mx-3">
+                {" "}
+                <CustomLink to="/google-map">Google Map</CustomLink>
               </Nav.Link>
 
               <Nav.Link className="mx-3">
