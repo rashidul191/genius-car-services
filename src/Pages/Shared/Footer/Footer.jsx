@@ -7,10 +7,8 @@ const Footer = () => {
       <h6>
         {" "}
         <small>
-          copyright &copy; {year}{" "}
-          <a target="_blank" href="https://github.com/rashidul191">
-            Rashidul{" "}
-          </a>{" "}
+          copyright &copy; {year}
+          <span className="text-dark"> Rashidul</span>
         </small>
       </h6>
     </footer>

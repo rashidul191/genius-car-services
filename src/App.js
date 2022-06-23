@@ -13,6 +13,8 @@ import RequireAuth from "./Pages/Login/RequireAuth/RequireAuth";
 import Pricing from "./Pages/Pricing/Pricing";
 import Checkout from "./Pages/Checkout/Checkout/Checkout";
 import GoogleMap from "./Pages/GoogleMap/GoogleMap";
+import AddService from "./Pages/AddService/AddService";
+import ManageServices from "./Pages/ManageServices/ManageServices";
 
 function App() {
   return (
@@ -34,6 +36,23 @@ function App() {
           element={
             <RequireAuth>
               <Pricing></Pricing>
+            </RequireAuth>
+          }
+        ></Route>
+
+        <Route
+          path="/addservice"
+          element={
+            <RequireAuth>
+              <AddService></AddService>
+            </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="/manage"
+          element={
+            <RequireAuth>
+              <ManageServices></ManageServices>
             </RequireAuth>
           }
         ></Route>

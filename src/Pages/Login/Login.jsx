@@ -33,10 +33,12 @@ const Login = () => {
     navigate("/register");
   };
   // Error
-  let errorElement;
+  let errorElement
   if (error) {
-    errorElement = <p className="text-danger">{error?.message}</p>;
+    errorElement = "Password is not validate";
   }
+
+
   // handle Login Form Submit
   const handleLoginSubmit = (event) => {
     event.preventDefault();
@@ -67,7 +69,7 @@ const Login = () => {
       <h2 className="text-center text-info mt-4">Please Login</h2>
       <Form className="border border-5 p-5" onSubmit={handleLoginSubmit}>
         {/* error message */}
-        {errorElement}
+        <p className="text-danger">{errorElement}</p>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control

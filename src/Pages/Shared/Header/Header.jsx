@@ -8,12 +8,11 @@ import Logo from "../../../images/logo.png";
 import CustomLink from "../../CustomLink/CustomLink";
 
 const Header = () => {
+  const [user] = useAuthState(auth);
 
-  const [user] =useAuthState(auth)
-
-  const handleSignOut =()=>{
-    signOut(auth)
-  }
+  const handleSignOut = () => {
+    signOut(auth);
+  };
   return (
     <header>
       {/* <Navbar bg="primary" variant="dark">
@@ -48,7 +47,13 @@ const Header = () => {
         </Container>
       </Navbar> */}
 
-      <Navbar collapseOnSelect expand="lg" sticky="top" bg="primary" variant="dark">
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        sticky="top"
+        bg="primary"
+        variant="dark"
+      >
         <Container>
           <Navbar.Brand>
             {" "}
@@ -85,11 +90,29 @@ const Header = () => {
                 <CustomLink to="/pricing">Pricing</CustomLink>
               </Nav.Link>
 
-              <Nav.Link className="mx-3">
-                {" "}
-                {user? <button className="btn btn-danger" onClick={handleSignOut}>Sign Out</button> :<CustomLink to="/login">Login</CustomLink>}
-              </Nav.Link>
+              {user && (
+                <>
+                  <Nav.Link className="mx-3">
+                    {" "}
+                    <CustomLink to="/addservice">Add Service</CustomLink>
+                  </Nav.Link>
 
+                  <Nav.Link className="mx-3">
+                    {" "}
+                    <CustomLink to="/manage">Manage Service</CustomLink>
+                  </Nav.Link>
+                </>
+              )}
+
+              <Nav.Link className="mx-3">
+                {user ? (
+                  <button className="btn btn-danger" onClick={handleSignOut}>
+                    Sign Out
+                  </button>
+                ) : (
+                  <CustomLink to="/login">Login</CustomLink>
+                )}
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
