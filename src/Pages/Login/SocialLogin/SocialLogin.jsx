@@ -4,7 +4,7 @@ import {
   useSignInWithGithub,
   useSignInWithGoogle,
 } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import auth from "../../../firebase.init";
 
 const SocialLogin = () => {
@@ -16,9 +16,12 @@ const SocialLogin = () => {
   const [signInWithFacebook, userFb, errorFb] = useSignInWithFacebook(auth);
   const navigate = useNavigate();
 
+  const location = useLocation();
+  let from = location.state?.from?.pathname || "/";
+
   // user information
   if (user || userGit || userFb) {
-    navigate("/");
+    navigate(from, { replace: true });
   }
 
   // Error handle

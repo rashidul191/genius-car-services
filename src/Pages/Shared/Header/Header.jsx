@@ -101,6 +101,10 @@ const Header = () => {
                     {" "}
                     <CustomLink to="/manage">Manage Service</CustomLink>
                   </Nav.Link>
+                  <Nav.Link className="mx-3">
+                    {" "}
+                    <CustomLink to="/orders">Orders</CustomLink>
+                  </Nav.Link>
                 </>
               )}
 

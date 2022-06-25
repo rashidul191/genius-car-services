@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useRef } from "react";
 import { Button, Form } from "react-bootstrap";
 import {
@@ -7,7 +8,8 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import SocialLogin from "./SocialLogin/SocialLogin";
-import { ToastContainer, toast } from "react-toastify";
+// import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PageTitle from "../Shared/PageTitle/PageTitle";
 // import { Helmet } from "react-helmet-async";
@@ -26,27 +28,32 @@ const Login = () => {
   const [sendPasswordResetEmail] = useSendPasswordResetEmail(auth);
 
   let from = location.state?.from?.pathname || "/";
-  if (user) {
-    navigate(from, { replace: true });
-  }
+  /*
+   if (user) {
+     navigate(from, { replace: true });
+  } 
+  */
   const navigateRegister = () => {
     navigate("/register");
   };
   // Error
-  let errorElement
+  let errorElement;
   if (error) {
     errorElement = "Password is not validate";
   }
 
-
   // handle Login Form Submit
-  const handleLoginSubmit = (event) => {
+  const handleLoginSubmit = async (event) => {
     event.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
     // console.log(email, password);
-    signInWithEmailAndPassword(email, password);
+    await signInWithEmailAndPassword(email, password);
+    const { data } = await axios.post("http://localhost:5000/login", { email });
+    console.log(data);
+    localStorage.setItem("accessToken", data.accessToken);
+    navigate(from, { replace: true });
   };
 
   // handle Forget password
@@ -111,7 +118,7 @@ const Login = () => {
           Please Register
         </span>
       </p>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <SocialLogin></SocialLogin>
     </div>
   );
