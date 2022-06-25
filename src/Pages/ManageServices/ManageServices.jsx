@@ -7,7 +7,7 @@ const ManageServices = () => {
     const proceed = window.confirm("Are you sure?");
     if (proceed) {
       //   console.log(id);
-      const url = `http://localhost:5000/service/${id}`;
+      const url = `https://tranquil-cliffs-63024.herokuapp.com/service/${id}`;
       fetch(url, {
         method: "DELETE",
       })
@@ -20,8 +20,8 @@ const ManageServices = () => {
     }
   };
   return (
-    <div>
-      <h2>Manage your services</h2>
+    <div className="container w-50 auto my-5">
+      <h2 className="text-info">Manage your services</h2>
       {services.map((service) => (
         <div key={service._id}>
           <h5>

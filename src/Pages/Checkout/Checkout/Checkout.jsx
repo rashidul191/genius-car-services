@@ -42,7 +42,7 @@ const Checkout = () => {
       zipCode: event.target.zipCode.value,
     };
 
-    axios.post("http://localhost:5000/order", order).then((res) => {
+    axios.post("https://tranquil-cliffs-63024.herokuapp.com/order", order).then((res) => {
       const { data } = res;
       console.log(data);
       if (data.insertedId) {
