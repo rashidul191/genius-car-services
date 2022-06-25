@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useRef } from "react";
 import { Button, Form } from "react-bootstrap";
 import {
@@ -12,6 +11,7 @@ import SocialLogin from "./SocialLogin/SocialLogin";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PageTitle from "../Shared/PageTitle/PageTitle";
+import useToken from "../../hook/useToken";
 // import { Helmet } from "react-helmet-async";
 
 const Login = () => {
@@ -26,34 +26,23 @@ const Login = () => {
     useSignInWithEmailAndPassword(auth);
   // forget password auth
   const [sendPasswordResetEmail] = useSendPasswordResetEmail(auth);
+  const [token] = useToken(user);
 
   let from = location.state?.from?.pathname || "/";
-  /*
-   if (user) {
-     navigate(from, { replace: true });
-  } 
-  */
+
+  if (token) {
+    navigate(from, { replace: true });
+  }
+
   const navigateRegister = () => {
     navigate("/register");
   };
-  // Error
-  let errorElement;
-  if (error) {
-    errorElement = "Password is not validate";
-  }
-
   // handle Login Form Submit
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-
-    // console.log(email, password);
     await signInWithEmailAndPassword(email, password);
-    const { data } = await axios.post("https://tranquil-cliffs-63024.herokuapp.com/login", { email });
-    console.log(data);
-    localStorage.setItem("accessToken", data.accessToken);
-    navigate(from, { replace: true });
   };
 
   // handle Forget password
@@ -76,7 +65,9 @@ const Login = () => {
       <h2 className="text-center text-info mt-4">Please Login</h2>
       <Form className="border border-5 p-5" onSubmit={handleLoginSubmit}>
         {/* error message */}
-        <p className="text-danger">{errorElement}</p>
+        <p className="text-danger">
+          {error ? "Error !!! Some think is wrong" : " "}
+        </p>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control

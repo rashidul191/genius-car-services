@@ -14,17 +14,17 @@ const Order = () => {
   useEffect(() => {
     // async await axios
     const getOrders = async () => {
-      const email = user.email;
+      const email = user?.email;
       const url = `https://tranquil-cliffs-63024.herokuapp.com/order?email=${email}`;
       try {
         const { data } = await axiosPrivate.get(url);
         setOrders(data);
       } catch (error) {
         console.log(error.message);
-        /*  if (error.response.status === 401 || error.response.status === 403) {
+        if (error.response.status === 401 || error.response.status === 403) {
           signOut(auth);
           navigate("/login");
-        } */
+        }
       }
     };
     getOrders();

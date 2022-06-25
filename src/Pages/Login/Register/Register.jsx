@@ -7,6 +7,7 @@ import {
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import useToken from "../../../hook/useToken";
 
 const Register = () => {
   // Agree Trams and Condition
@@ -16,11 +17,12 @@ const Register = () => {
     useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
   // update user profile
   const [updateProfile] = useUpdateProfile(auth);
+  const [token] = useToken(user);
 
   const navigate = useNavigate();
-  if (user) {
-    console.log(user);
-    // navigate("/");
+  if (token) {
+    // console.log(user);
+    navigate("/");
   }
 
   // handle Register form submit
@@ -37,7 +39,7 @@ const Register = () => {
     await createUserWithEmailAndPassword(email, password);
     await updateProfile({ displayName: name });
     console.log("Updated profile");
-    navigate("/");
+    // navigate("/");
   };
 
   // toggle login btn
